@@ -8,7 +8,7 @@ def connect_db():
     """
     this function is for the conenction with the database 
     """
-    load_dotenv("/home/yassine/projects/Housing_Data_API/.env")
+    load_dotenv("/home/ubuntu/projects/Housing_Data_API/.env")
     conn_string = os.getenv("URL_CONN")
     
     try :
