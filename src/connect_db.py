@@ -3,13 +3,15 @@ import pandas as pd
 from dotenv import load_dotenv
 import os
 
-
+load_dotenv()
 def connect_db():
     """
     this function is for the connection with the database 
     """
-    load_dotenv("/home/yassine/projects/Housing_Data_API/.env")
     conn_string = os.getenv("URL_CONN")
+
+    if not conn_string : 
+        raise RuntimeError("URL_CONN environment variable is not set")
 
     engine = create_engine(str(conn_string),
                             pool_pre_ping=True,
