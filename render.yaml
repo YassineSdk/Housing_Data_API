@@ -1,0 +1,19 @@
+version: "1"
+projects:
+- name: Housing Data API
+  environments:
+  - name: Production
+    services:
+    - type: web
+      name: Housing_Data_API
+      runtime: python-3.11
+      repo: https://github.com/YassineSdk/Housing_Data_API
+      branch: production
+      plan: free
+      envVars:
+      - key: URL_CONN
+        sync: false
+      region: oregon
+      buildCommand: pip install -r requirements.txt
+      startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+      autoDeployTrigger: commit
