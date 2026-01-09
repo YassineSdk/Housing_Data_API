@@ -1,5 +1,6 @@
 from .connect_db import connect_db 
 from .make_query import make_query
+import traceback
 import sqlalchemy
 from sqlalchemy import create_engine , text
 import pandas as pd 
@@ -21,15 +22,21 @@ def query_excute(
             - filter by city and ther args
             
     """
-    engine = connect_db()
-    query, params = make_query(City,start,end,price_min,price_max)
-    
-
-    with engine.connect() as conn:
-        result = conn.execute(
-                    text(query), 
-                    params)
-        rows = result.mappings().all()
+    try :
+        engine = connect_db()
+        query, params = make_query(City,start,end,price_min,price_max)
         
-    return rows
+
+        with engine.connect() as conn:
+            result = conn.execute(
+                        text(query), 
+                        params)
+            rows = result.mappings().all()
+        
+        return [dict(row) for row in rows]
+    except Exception as e:
+        print("Database error")
+        print(traceback.format_exc())
+        raise
+
 
