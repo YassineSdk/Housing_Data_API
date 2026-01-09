@@ -16,7 +16,7 @@ def connect_db():
                             pool_size=50,
                             max_overflow=100,
                             future=True)
-    if engine:
+    if engine is not None:
         print("engine is ready")
         return engine
     else : 

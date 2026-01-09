@@ -10,6 +10,15 @@ import logging
 app  = FastAPI(title="Housing Data API",
                description="REST API for housing listings")
 
+@app.get("/")
+def root():
+    return {
+        "message": "Housing Data API",
+        "documentation": "/docs",
+        "endpoints": {
+            "housing": "/housing"
+        }
+    }
 
 @app.get("/housing")
 def get_housing_data(
